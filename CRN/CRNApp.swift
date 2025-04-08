@@ -10,8 +10,9 @@ import SwiftUI
 @main
 struct CRNApp: App {
     var body: some Scene {
-        WindowGroup {
+        MenuBarExtra("CRN", systemImage: "radio") {
             ContentView()
         }
+        .menuBarExtraStyle(.window)
     }
 }
