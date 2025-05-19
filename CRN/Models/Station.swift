@@ -5,6 +5,8 @@
 //  Created by Grigory Avdyushin   on 03/04/2025.
 //
 
+import SwiftUI
+
 enum Station: String, CaseIterable {
     case Rock
     case Hits
@@ -45,6 +47,17 @@ extension Station: CustomStringConvertible {
         case .ClassicRock: "Christian Classic Rock"
         case .CountryGospel: "Christian Country Gospel"
         case .HardRock: "Christian Hard Rock"
+        }
+    }
+
+    var color: Color {
+        switch self {
+        case .Rock: Color(.rock)
+        case .Hits: Color(.hits)
+        case .PowerPraise: Color(.powerPraise)
+        case .ClassicRock: Color(.classicRock)
+        case .CountryGospel: Color(.countryGospel)
+        case .HardRock: Color(.hardRock)
         }
     }
 }

@@ -15,6 +15,7 @@ class PlayerViewModel {
     private(set) var cover: URL? = nil
     private(set) var isReady = true
     private(set) var buttonImage = "play.circle.fill"
+    private(set) var stationColor = Station.Rock.color
 
     private var timer: AnyCancellable?
     private let service = NowPlayingService()
@@ -87,6 +88,7 @@ class PlayerViewModel {
     }
 
     func changeStation(station: Station) {
+        stationColor = station.color
         switch streaming.status {
         case .paused, .none: ()
         case .playing:

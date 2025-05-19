@@ -15,7 +15,6 @@ struct PlayerView: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
-
             ZStack(alignment: .top) {
                 AsyncImage(url: viewModel.cover) { img in
                     img
@@ -54,7 +53,7 @@ struct PlayerView: View {
                     .menuStyle(.borderlessButton)
                 }
                 .padding(6)
-                .background(LinearGradient(colors: [Color.clear, Color.black], startPoint: .bottom, endPoint: .top))
+                .background(viewModel.stationColor)
                 .tint(.white)
             }
 
