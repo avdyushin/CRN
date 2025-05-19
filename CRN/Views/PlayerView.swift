@@ -10,6 +10,7 @@ import SwiftUI
 
 struct PlayerView: View {
 
+    @Environment(\.openURL) var openURL
     @State private var viewModel = PlayerViewModel()
 
     var body: some View {
@@ -25,6 +26,11 @@ struct PlayerView: View {
                         .foregroundStyle(.gray)
                         .frame(width: 240, height: 240)
                         .padding()
+                }
+                .onTapGesture {
+                    if let url = URL(string: NowPlayingService.supportURL) {
+                        openURL(url)
+                    }
                 }
                 Group {
                     Menu {
