@@ -11,3 +11,9 @@ The app is very simple, residing conveniently in your status bar for easy access
 1. Once downloaded, double-click the `.zip` file to extract the app.
 1. Drag and drop the extracted app into your `Applications` folder.
 1. If prompted, go to `System Preferences > Security & Privacy > General` and click "Open Anyway" to allow the app to run.
+
+## Screenshots
+
+![Player](assets/player.png)
+
+![Stations](assets/stations.png)
