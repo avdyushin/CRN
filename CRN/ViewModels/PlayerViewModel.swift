@@ -5,7 +5,6 @@
 //  Created by Grigory Avdyushin   on 07/04/2025.
 //
 
-
 import Combine
 import SwiftUI
 
@@ -88,7 +87,12 @@ class PlayerViewModel {
     }
 
     func changeStation(station: Station) {
-        streaming.pause()
-        streaming.play(station: station)
+        switch streaming.status {
+        case .paused, .none: ()
+        case .playing:
+            streaming.pause()
+            streaming.play(station: station)
+        default: ()
+        }
     }
 }
