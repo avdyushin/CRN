@@ -53,7 +53,7 @@ struct PlayerView: View {
                     .menuStyle(.borderlessButton)
                 }
                 .padding(6)
-                .background(viewModel.stationColor)
+                .background(viewModel.station.color)
                 .tint(.white)
             }
 

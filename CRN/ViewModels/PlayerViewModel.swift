@@ -8,6 +8,21 @@
 import Combine
 import SwiftUI
 
+extension UserDefaults {
+    static var lastStation: Station {
+        get {
+            if let value = UserDefaults.standard.string(forKey: "station_"),
+               let station = Station(rawValue: value) {
+                return station
+            }
+            return Station.Rock
+        }
+        set {
+            UserDefaults.standard.setValue(newValue.rawValue, forKey: "station_")
+        }
+    }
+}
+
 @Observable
 class PlayerViewModel {
     private(set) var title = ""
@@ -15,16 +30,28 @@ class PlayerViewModel {
     private(set) var cover: URL? = nil
     private(set) var isReady = true
     private(set) var buttonImage = "play.circle.fill"
-    private(set) var stationColor = Station.Rock.color
 
     private var timer: AnyCancellable?
     private let service = NowPlayingService()
     private let streaming = StreamingService()
     private var status: Set<AnyCancellable> = Set()
 
-    var station = Station.Rock {
+    var station: Station {
+        get {
+            access(keyPath: \.station)
+            return UserDefaults.lastStation
+        }
+        set {
+            withMutation(keyPath: \.station) {
+                UserDefaults.lastStation = newValue
+                _station = newValue
+            }
+        }
+    }
+
+    @ObservationIgnored private var _station = UserDefaults.lastStation {
         willSet {
-            if newValue != station {
+            if _station != newValue {
                 changeStation(station: newValue)
             }
         }
@@ -88,7 +115,6 @@ class PlayerViewModel {
     }
 
     func changeStation(station: Station) {
-        stationColor = station.color
         switch streaming.status {
         case .paused, .none: ()
         case .playing:
