@@ -50,6 +50,21 @@ extension Station: CustomStringConvertible {
         }
     }
 
+    private var attributedDescription: String {
+        switch self {
+        case .Rock: "Christian**Rock**.Net"
+        case .Hits: "Christian**Hits**.Net"
+        case .PowerPraise: "Christian**PowerPraise**.Net"
+        case .ClassicRock: "Christian**ClassicRock**.Net"
+        case .CountryGospel: "Christian**CountryGospel**.Net"
+        case .HardRock: "Christian**HardRock**.Net"
+        }
+    }
+
+    var attributedString: AttributedString {
+        (try? AttributedString(markdown: attributedDescription)) ?? ""
+    }
+
     var color: Color {
         switch self {
         case .Rock: Color(.rock)

@@ -31,26 +31,34 @@ struct PlayerView: View {
                         openURL(url)
                     }
                 }
-                Group {
-                    Menu {
-                        ForEach(Station.allCases, id: \.self) { station in
-                            Button {
-                                viewModel.station = station
-                            } label: {
-                                Text("\(station)")
+                ZStack {
+                    Group {
+                        Menu {
+                            ForEach(Station.allCases, id: \.self) { station in
+                                Button {
+                                    viewModel.station = station
+                                } label: {
+                                    Text("\(station)")
+                                }
                             }
-                        }
-                        Divider()
-                        Button {
-                            NSApplication.shared.terminate(nil)
+                            Divider()
+                            SettingsLink()
+                            Button {
+                                NSApplication.shared.terminate(nil)
+                            } label: {
+                                Text("Quit")
+                            }
                         } label: {
-                            Text("Quit")
+                            EmptyView()
                         }
-                    } label: {
-                        Text("\(viewModel.station)")
-                            .padding()
+                        .menuStyle(.borderlessButton)
                     }
-                    .menuStyle(.borderlessButton)
+                    HStack {
+                        Text(viewModel.station.attributedString)
+                            .foregroundStyle(.white)
+                        Spacer()
+                    }
+                    .allowsHitTesting(false)
                 }
                 .padding(6)
                 .background(viewModel.station.color)
@@ -85,6 +93,7 @@ struct PlayerView: View {
         }.task {
             try? await viewModel.refresh()
         }
+        .border(Color(viewModel.station.color), width: 2)
     }
 }
 
